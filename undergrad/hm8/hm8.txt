@@ -1,0 +1,20 @@
+class queue
+v
+class Random
+v
+class passenger
+
+class passenger_gueue
+
+class agent
+
+class check_simulation
+{
+	
+
+
+
+FF_rate:0.25/minutes
+Reg_rate:0.5/minetes
+
+maximum number of FF served between regular passenger:5

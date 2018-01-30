@@ -1,0 +1,11 @@
+lay
+house
+rat
+cow
+jack
+built
+dog
+killed
+milked
+that
+malt

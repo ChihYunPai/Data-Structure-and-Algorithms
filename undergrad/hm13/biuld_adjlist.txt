@@ -1,0 +1,15 @@
+ if(!adjlist.empty())
+        {
+            map< string,set<string> >::iterator it;
+            for(it=adjlist.begin();it!=adjlist.end();it++)
+            {
+               if(e.v1==(*it).first)
+               {
+                 
+                 (*it)[e.v1]+=e.v2;
+                 (*it).first=e.v1;
+                 (*it).second.insert(e.v2);
+                 }
+            }
+        }
+        else{;}

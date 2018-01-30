@@ -1,0 +1,15 @@
+10
+Ann_Arbor Chicago 260
+Ann_Arbor Detroit 50
+Ann_Arbor Toledo 40
+Detroit Toledo 60
+Chicago Fort_Wayne 148
+Chicago Indianapolis 180
+Fort_Wayne Indianapolis 120
+Columbus Indianapolis 180
+Columbus Toledo 155
+Columbus Pittsburgh 180
+Cleveland Toledo 120
+Cleveland Columbus 150
+Cleveland Pittsburgh 130
+Philadelphia Pittsburgh 320

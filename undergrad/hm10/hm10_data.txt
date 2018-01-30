@@ -1,0 +1,6 @@
+lay house cat
+house cow jack
+cow built dog
+jack NULL killed
+cat milked that
+milked malt NULL

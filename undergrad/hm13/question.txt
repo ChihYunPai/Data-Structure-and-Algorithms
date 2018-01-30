@@ -1,0 +1,6 @@
+1. pair
+2. typedef
+3. 如果自訂義class與現有library名稱相衝，以哪個為主?
+
+std::ostream& graph::edge::operator<<(std::ostream&, const graph::edge&)' must take exactly one argument 
+4. 定義ostream& operator << 一定要加friend (?

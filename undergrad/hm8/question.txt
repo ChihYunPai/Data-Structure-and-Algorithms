@@ -1,0 +1,3 @@
+1.在agent 內部用到passneger_queue
+  以及在checkin_sim內部用到agent、passneger_queue，
+  如何在main()裡附值。
