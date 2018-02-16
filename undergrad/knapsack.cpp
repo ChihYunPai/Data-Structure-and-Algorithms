@@ -1,52 +1,58 @@
-#include<iostream>
+#include <stdio.h>
+#include <iostream>
+#include <vector>
+
 using namespace std;
-#include<stdio.h>
-void knapsack(int n,int W);
-int n,i,w,W;
-int weight[50],v[50];
+
+void knapsack(const int&, const int&, const vector<int>&, const vector<int>&);
+
+int weights[50], values[50];
 int C[50][50];
-int main()
-{
- cout<<"Enter number of items";
- cin>>n;
- cout<<"Enter Capacity";
- cin>>W;
- cout<<"Enter weights";
- for(i=0;i<n;i++)
- {
-  cin>>weight[i];
- }
- cout<<"Enter values";
-	for(i=0;i<n;i++)
- {
-  cin>>v[i];
- }
-knapsack(n,W);
-	 system("pause");
+
+int main(){
+	int n, W;
+
+	cout << "Enter number of items:" << endl;;
+	cin >> n;
+	cout << "Enter Capacity" << endl;
+	cin >> W;
+	cout << "Enter weights" << endl;
+
+	vector<int> weights(n), values(n);
+	
+
+	for(int i = 0; i < n; i++){
+		cin >> weights[i];
+	}
+
+	cout << "Enter values" << endl;
+
+	for(int i = 0; i < n; i++){
+		cin >> values[i];
+	}
+
+	knapsack(n, W, weights, values);
+
+	system("pause");
 }
 
-void knapsack(int n,int W)
-{
+void knapsack(const int& n, const int& W, const vector<int>& weights, const vector<int>& values){
 
-/*for(int c = 0; c <= W; c++){
-	C[0][c] = 0;
-  }*/
-for(i = 1; i <= n; i++){
-	C[i][0] = 0;
- //cout<<C[i][0];
-  }
-for(i=1;i<=n;i++)
-{
-	  for(w=0;w<=W;w++)
-		  if(weight[i]<=w)						   //item can be put in knapsack
-			 if(v[i]+C[i-1][w-weight[i]]>C[i-1][w])
-		  C[i][w]=v[i]+C[i-1][w-weight[i]];
-	else
-		  C[i][w]=C[i-1][w];
-		 else
-			 C[i][w]=C[i-1][w];			 // w[i]>w
+	int C[n][n];
+
+	for(int i = 1; i <= n; i++){
+		C[i][0] = 0;
+	}
+	for(int i = 1; i <= n ; i++){
+		for(int w = 0; w <= W; w++){
+			if(weights[i] <= w){
+				if(values[i] + C[i-1][w - weights[i]] > C[i-1][w])
+					C[i][w] = values[i] + C[i-1][w - weights[i]];
+				else
+					C[i][w] = C[i-1][w];
+			}
+			else
+				C[i][w] = C[i-1][w];
+		}
+	}
 }
-cout<<C[i][w];
-//return C[i][w];
-} 
- 
