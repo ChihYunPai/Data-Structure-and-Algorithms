@@ -1,3 +1,10 @@
+"""
+implementation of Binary Search Tree
+"""
+"""
+Not finished yet
+"""
+
 import sys
 import gc
 
@@ -17,7 +24,7 @@ class Node:
 		del self
 		gc.collect()
 
-class BTree:
+class BSTree:
 	def __init__(self, root=None):
 		self.root = root
 
@@ -44,12 +51,13 @@ class BTree:
 		"""
 		insert implemented in iteration method
 		"""
+		current = self.root:
+		while current:
 		if self.root == None:
 			self.root = Node(item)
 		else:
-			# parent = None
 			current = self.root
-			while(True):
+			while True:
 				if item < current.item:
 					if current.left == None:
 						current.left = Node(item)
@@ -62,9 +70,13 @@ class BTree:
 					current = current.right
 
 	def search(self, item=None):
-		current = self.root
+		"""
+		return Node if found Node.item == item
+		return None otherwise
+		"""
 		if self.root == None: 
 			return None
+		current = self.root
 		while item != current.item:
 			if item < current.item:
 				current = current.left
@@ -73,6 +85,40 @@ class BTree:
 			if current == None: 
 				return None
 		return current
+
+	def isIn(self, item=None):
+		current = self.root
+		while current:
+			if item < current.item:
+				current = current.left
+			elif item > current.item:
+				current = current.right
+			else: # current == current.item
+				return True
+		return False
+
+	def delete(self, item=None):
+		"""
+		case1: deleted node has no child
+				1. node == root 
+				2. node != root
+		case2: deleted node has one child
+				1. node == root
+				2. node != root
+		case3: deleted node has two children
+				1. node == root
+				2. node != root
+		"""
+		# if node:
+		# 	# case1
+		# 	if not node.left and not node.right:
+		# 		...
+		# 	# case2
+		# 	elif (is node.left) not (is node.right):
+		# 		...
+		# 	# case3
+		# 	elif node.left and node.right:
+		# 		...
 
 	def preorder_traversal(self, node=None):
 		if node != None:
