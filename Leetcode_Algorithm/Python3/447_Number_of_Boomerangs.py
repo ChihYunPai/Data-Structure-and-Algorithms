@@ -13,12 +13,23 @@ Output:
 Explanation:
 The two boomerangs are [[1,0],[0,0],[2,0]] and [[1,0],[2,0],[0,0]]
 """
+################################################################
+# Old version
+
+# class Solution:
+#     def longestPalindrome(self, s):
+#         """
+#         :type s: str
+#         :rtype: int
+#         """
+#         counter = list(collections.Counter(s).values())
+#         return sum([2*(x//2) for x in counter]) + any([x%2==1 for x in counter])
 
 class Solution:
-    def longestPalindrome(self, s):
+    
+    def numberOfBoomerangs(self, points):
         """
-        :type s: str
+        :type points: List[List[int]]
         :rtype: int
         """
-        counter = list(collections.Counter(s).values())
-        return sum([2*(x//2) for x in counter]) + any([x%2==1 for x in counter])
+        return sum(n*(n-1) for x1, y1 in points for n in collections.Counter((x1-x2)**2 + (y1-y2)**2 for x2, y2 in points).values())

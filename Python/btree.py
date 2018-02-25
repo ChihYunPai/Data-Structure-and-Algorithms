@@ -61,35 +61,6 @@ class BTree:
 						break
 					current = current.right
 
-	# def insert(self, item=None):
-	# 	"""
-	# 	insert implemented in recursive method
-	# 	"""
-	# 	if self.root == None:
-	# 		self.root = Node(item)
-	# 	else:
-	# 		self.__insert(item, self.root)
-
-	# def __insert(self, item=None, node=None):
-	# 	"""
-	# 	subfunction __insert implemented in recursive method
-	# 	"""
-	# 	if node == None:
-	# 		return Node(item)
-	# 	else:
-	# 		if item < node.item:
-	# 			if node.left == None:
-	# 				print('left: ', node.item)
-	# 				node.left = Node(item)
-	# 			else:
-	# 				self.__insert(item, node.left)
-	# 		else:
-	# 			if node.right == None:
-	# 				print('right: ', node.item)
-	# 				node.right = Node(item)
-	# 			else:
-	# 				self.__insert(item, node.right)
-
 	def search(self, item=None):
 		current = self.root
 		if self.root == None: 
