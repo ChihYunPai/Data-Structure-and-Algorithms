@@ -24,4 +24,20 @@ class Solution:
         :type t: str
         :rtype: str
         """
-        return list(collections.Counter(t) - collections.Counter(s))[0]
+        # return list(collections.Counter(t) - collections.Counter(s))[0]
+
+        """
+        #1: 51 ms
+        """
+        # s_counter = collections.Counter(s)
+        # t_counter = collections.Counter(t)
+        # for s_key, s_value in s_counter.items():
+        #     t_counter[s_key] -= s_value
+        # return [x for x in t_counter.keys() if t_counter[x] ==1 ][0]
+        
+        """
+        #2: 33 ms
+        """
+        for x in set(t):
+            if s.count(x) != t.count(x):
+                return x

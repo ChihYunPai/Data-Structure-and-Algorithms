@@ -13,4 +13,11 @@ class Solution:
         :type nums: List[int]
         :rtype: int
         """
-        return list(set([x for x in range(len(nums)+1)]) - set(nums))[0]
+        """
+        #1
+        """
+        # return list(set([x for x in range(len(nums)+1)]) - set(nums))[0]
+        """
+        #2
+        """
+        return len(nums) * (len(nums) + 1) / 2 - sum(nums)
