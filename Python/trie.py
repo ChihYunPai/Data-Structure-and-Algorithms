@@ -40,6 +40,9 @@ class Trie():
         node.isEnd = True
 
     def search(self, string):
+        """
+        return True if found the string, else return False
+        """
         node = self.root
         for char in string:
             if char in node.children:
@@ -47,6 +50,17 @@ class Trie():
             else:
                 return False
         return node != None and node.isEnd
+
+    def prefix(self, string):
+        prefix = ""
+        node = self.root
+        for char in string:
+            if char in node.children:
+                prefix += char
+                node = node.children[char]
+            else:
+                return prefix
+        return prefix
     
     def _display(self, node, string=""):
         if node.isEnd:
@@ -81,6 +95,8 @@ def test():
         print(trie.search(word))
 
     trie.display()
+    print('==================')
+    print(trie.find('thi'))
     print('==================')
     trie.delete('answer')
     trie.display()
