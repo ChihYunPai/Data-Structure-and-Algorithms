@@ -53,21 +53,21 @@ class BSTree:
 		"""
 		current = self.root:
 		while current:
-		if self.root == None:
-			self.root = Node(item)
-		else:
-			current = self.root
-			while True:
-				if item < current.item:
-					if current.left == None:
-						current.left = Node(item)
-						break
-					current = current.left
-				else:
-					if current.right == None:
-						current.right = Node(item)
-						break
-					current = current.right
+			if self.root == None:
+				self.root = Node(item)
+			else:
+				current = self.root
+				while True:
+					if item < current.item:
+						if current.left == None:
+							current.left = Node(item)
+							break
+						current = current.left
+					else:
+						if current.right == None:
+							current.right = Node(item)
+							break
+						current = current.right
 
 	def search(self, item=None):
 		"""

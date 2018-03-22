@@ -1,4 +1,3 @@
-# Python 2
 from array import array
 
 class dequeue(array):

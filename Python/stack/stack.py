@@ -1,10 +1,10 @@
-from array import array
+from array import Array
 
-class stack(array):
+class Stack(array):
 	# Stack
 
 	def __init__(self, size=0, value=0):
-		self.body = array(size, value)
+		self.body = Array(size, value)
 
 	def __str__(self):
 		return self.body.__str__()
