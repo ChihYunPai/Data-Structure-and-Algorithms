@@ -1,159 +1,191 @@
 """
-implementation of Binary Search Tree
-"""
-"""
-Not finished yet
+Implementation of Binary Search Tree
 """
 
-import sys
-import gc
+class Node():
+    def __init__(self, key=None):
+        self.key = key
+        self.left = None
+        self.right = None
 
-class Node:
-	def __init__(self, item=None, left=None, right=None):
-		self.item = item
-		self.left = left
-		self.right = right
+    def __str__(self):
+        string = str(self.key)
+        if self.left:
+            string += ", left: " + str(self.left)
+        if self.right:
+            string += ", right: " + str(self.right)
+        return string
 
-	def __repr__(self):
-		return repr(self.item) + ' ' + repr(self.left) + ' ' + repr(self.right)
+class BSTree():
+    def __init__(self):
+        self.root = Node()
+        self.length = 0
 
-	def __str__(self):
-		return str(self.item) + ' ' + str(self.left) + ' ' + str(self.right)
+    def __str__(self):
+        pass
 
-	def __del__(self):
-		del self
-		gc.collect()
+    def __repr__(self):
+        pass
 
-class BSTree:
-	def __init__(self, root=None):
-		self.root = root
+    def __del__(self):
+        del self.root
 
-	def __repr__(self):
-		return repr(self.root)
+    def __len__(self):
+        return self._count(self.root)
 
-	def __str__(self):
-		return str(self.root)
+    def _count(self, node):
+        if node == None:
+            return 0
+        return 1 + self._count(node.left) + self._count(node.right)
 
-	def __del__(self):
-		del self.root
-		gc.collect()
+    def count(self):
+        node = self.root
+        if node is None:
+            return 0
+        return self._count(node)
 
-	def __len__(self):
-		return len([x for x in list(str(self.root).split(' ')) if x != 'None'])
+    def _search(self, key, node):
+        if node is None or node.key == key:
+            return node
+        if key < node.key:
+            return self.search(key, node.left)
+        # key > node.key
+        return self.search(key, node.right)
 
-	def __iter__(self):
-		if self.root != None:
-			return iter(self.root)
-		else:
-			return iter([])
+    def search(self, key):
+        if self.root == None:
+            return None
+        return self._search(key, self.root)
+        
+    def _insert(self, key, node):
+        if key < node.key:
+            if node.left == None:
+                node.left = Node(key)
+                return
+            else:
+                self._insert(key, node.left)
+        else: # if key >= node.key
+            if node.right == None:
+                node.right = Node(key)
+                return
+            else:
+                self._insert(key, node.right)
 
-	def insert(self, item=None):
-		"""
-		insert implemented in iteration method
-		"""
-		current = self.root:
-		while current:
-			if self.root == None:
-				self.root = Node(item)
-			else:
-				current = self.root
-				while True:
-					if item < current.item:
-						if current.left == None:
-							current.left = Node(item)
-							break
-						current = current.left
-					else:
-						if current.right == None:
-							current.right = Node(item)
-							break
-						current = current.right
+    def insert(self, key):
+        if self.root.key == None:
+            self.root = Node(key)
+        else:
+            self._insert(key, self.root)
 
-	def search(self, item=None):
-		"""
-		return Node if found Node.item == item
-		return None otherwise
-		"""
-		if self.root == None: 
-			return None
-		current = self.root
-		while item != current.item:
-			if item < current.item:
-				current = current.left
-			else:
-				current = current.right
-			if current == None: 
-				return None
-		return current
+    def find_min(self, node):
+        currentNode = node
+        while currentNode.left:
+            currentNode = currentNode.left
+        return currentNode
 
-	def isIn(self, item=None):
-		current = self.root
-		while current:
-			if item < current.item:
-				current = current.left
-			elif item > current.item:
-				current = current.right
-			else: # current == current.item
-				return True
-		return False
+    def find_max(self, node):
+        currentNode = node
+        while currentNode.right:
+            currentNode = currentNode.right
+        return currentNode
 
-	def delete(self, item=None):
-		"""
-		case1: deleted node has no child
-				1. node == root 
-				2. node != root
-		case2: deleted node has one child
-				1. node == root
-				2. node != root
-		case3: deleted node has two children
-				1. node == root
-				2. node != root
-		"""
-		# if node:
-		# 	# case1
-		# 	if not node.left and not node.right:
-		# 		...
-		# 	# case2
-		# 	elif (is node.left) not (is node.right):
-		# 		...
-		# 	# case3
-		# 	elif node.left and node.right:
-		# 		...
+    def _delete(self, node, key):
+        if node is None:
+            return node
+        if key < node.key:
+            node.left = self._delete(node.left, key)
+        elif key > node.key:
+            node.right = self._delete(node.right, key)
+        else: # found the node
+            if node.left is None: # node only has right child
+                temp = node.right
+                node = None
+                return temp
+            elif node.right is None: # node only has left child
+                temp = node.left
+                node = None
+                return temp
+            # with two children
+            temp = self.find_min(node.right)
+            node.key = temp.key # copy value of the min_node in the right subtree to the node
+            node.right = self._delete(node.right, temp.key)
+        return node
 
-	def preorder_traversal(self, node=None):
-		if node != None:
-			print(node.item, end=' ')
-			self.preorder_traversal(node.left)
-			self.preorder_traversal(node.right)
+    def delete(self, key):
+        node = self.root
+        if node is None:
+            return node
+        self.root = self._delete(self.root, key)
 
-	def inorder_traversal(self, node=None):
-		if node != None:
-			self.inorder_traversal(node.left)
-			print(node.item, end=' ')
-			self.inorder_traversal(node.right)
+    def _preorder(self, node):
+        if node:
+            print(node.key)
+            self._preorder(node.left)
+            self._preorder(node.right)
 
-	def postorder_traversal(self, node=None):
-		if node != None:
-			self.postorder_traversal(node.left)
-			self.postorder_traversal(node.right)
-			print(node.item, end=' ')
+    def _inorder(self, node):
+        if node:
+            self._inorder(node.left)
+            print(node.key)
+            self._inorder(node.right)
+
+    def _postorder(self, node):
+        if node:
+            self._postorder(node.left)
+            self._postorder(node.right)
+            print(node.key)
+
+    def traversal(self, opt='inorder'):
+        if self.root == None:
+            return None
+        if opt == 'inorder':
+            self._inorder(self.root)
+        elif opt == 'preorder':
+            self._preorder(self.root)
+        elif opt == 'postorder':
+            self._postorder(self.root)
+        else:
+            raise ValueError("opt: option should be 'inorder', 'preorder' or 'postorder'.")
+
+    def _verify(self, node):
+        if node == None:
+            return True
+        if node.left:
+            if node.left >= node.key:
+                return False
+        if node.right:
+            if node.right < node.key:
+                return False
+        return self._verify(node.left) and self._verify(node.right)
+        
+    def verifiy(self):
+        if self.root == None:
+            return True
+        self._verify(self.root)
 
 
-	def traversal(self, opt='preorder'):
-		"""
-		opt = 
-		'prevorder': root, left right
-		'inorder': left, root, right
-		'postorder': left, right, root
-		"""
-		if opt == 'preorder':
-			self.preorder_traversal(self.root)
-			print()
-		elif opt == 'inorder':
-			self.inorder_traversal(self.root)
-			print()
-		elif opt == 'postorder':
-			self.postorder_traversal(self.root)
-			print()
-		else:
-			ValueError("Error: opt must be \'preorder\'/\'inorder\'/\'postorder\'.")
+def test():
+    # running test for BSTree methods
+
+    tree = BSTree()
+    lst = [8, 3, 10, 1, 6, 4, 7, 14, 13]
+    for x in lst:
+        tree.insert(x)
+    print('inorder')
+    tree.traversal()
+    print('preorder')
+    tree.traversal(opt='preorder')
+    print('postorder')
+    tree.traversal(opt='postorder')
+
+    for x in lst[:]:
+        print('=================')
+        print('delete ', x)
+        tree.delete(x)
+        tree.traversal(opt='preorder')
+        
+if __name__ == '__main__':
+    test()
+
+
+        
