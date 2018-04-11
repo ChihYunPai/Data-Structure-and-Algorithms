@@ -22,6 +22,9 @@ You can assume that no duplicate edges will appear in edges. Since all edges are
 from collections import defaultdict
 from queue import LifoQueue as Stack
 from queue import Queue
+from collections import defaultdict
+from queue import LifoQueue as Stack
+from queue import Queue
 class Solution:
     def countComponents(self, n, edges):
         """
@@ -34,32 +37,34 @@ class Solution:
         Space: O(n)
         """
         # input validation
-        assert(0 <= len(edges))
-        assert(isinstance(n, int))
-        
-        if n == 0:
+        if n == 0 and len(edges) == 0:
             return 0
-        if len(edges) == 0:
+        if n != 0 and len(edges) == 0:
             return n
+        assert(isinstance(n, int) and 0 < n)
         
         # initialization
-        graph = defaultdict(list)
-        count = 0
-        visited = [False]*n
+        dic = defaultdict(list)
         for vi, vj in edges:
-            graph[vi].append(vj)
-            graph[vj].append(vi)
-            
+            dic[vi].append(vj)
+            dic[vj].append(vi)
+        visited = set()
+        count = 0
+        
+        # process
         for i in range(n):
-            if not visited[i]:
-                count += 1
+            if i in dic and i not in visited:
                 stack = Stack()
                 stack.put(i)
                 while not stack.empty():
                     node = stack.get()
-                    visited[node] = True
-                    for x in graph[node]:
-                        if not visited[x]:
-                            stack.put(x)
-        return count
+                    visited.add(node)
+                    for child in dic[node]:
+                        if child not in visited:
+                            stack.put(child)
+                count += 1
+        return count + (n - len(visited))
+        
+        
+                
                 
