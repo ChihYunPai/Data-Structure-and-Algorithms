@@ -34,7 +34,7 @@ class Solution:
                 stack.put(node)
                 path = set([node])
                 while not stack.emtpy():
-                    node= stack.pop()
+                    node = stack.pop()
                     visited.add(node)
                     for child in graph[node]:
                         if child in path:
