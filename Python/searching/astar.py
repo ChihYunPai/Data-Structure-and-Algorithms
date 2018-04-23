@@ -15,9 +15,9 @@ def h(start, end, heristicFunc=EuclideanDistance):
 
 def path(cameFrom, node):
 	path = [node]
-	while not in cameFrom.keys():
+	while node in cameFrom.keys():
 		node = cameFrom[node]
-		p.insert(0, node)
+		path.insert(0, node)
 	return path
 
 def Astar(problem):

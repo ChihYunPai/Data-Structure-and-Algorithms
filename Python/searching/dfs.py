@@ -36,3 +36,79 @@ def construct_path(state, meta):
         else:
             break
     return action_list[::-1]
+
+
+def dfs(graph, start, goal):
+    visited = set()
+    stack = Stack()
+    stack.put(start)
+
+    while not stack.empty():
+        node = stack.get()
+        if node == goal:
+            return True
+        visited.add(node)
+        for child in graph[node]:
+            if child not in visited:
+                stack.put(child)
+    return False
+
+def bfs(graph, start, goal):
+    visited = set()
+    queue = Queue()
+    queue.put(start)
+
+    while not queue.empty():
+        node  = queue.get()
+        if node == goal:
+            return True
+        visited.add(node)
+        for child in graph[node]:
+            if child not in visited:
+                queue.put(child)
+    return False
+
+def astar(graph, start, goal, h):
+    visited = set()
+    pqueue = PQueue()
+    pqueue.put((0, start))
+    g = defaultdict(int)
+    f = defaultdict(int)
+    g[start] = 0
+    f[start] = g[(start, start)] + h(start, goal)
+
+    while not pqueue.empty():
+        f_score, node = pqueue.get()
+        if node == goal:
+            return path(camFrom, node)
+
+
+        if node == goal:
+            return True
+        visited.add(node)
+        for child in graph[node]:
+            curr = g[] + h
+            
+def path(cameFrom, node):
+    path = [node]
+    while node in cameFrom.keys():
+        node = cameFrom[node[]
+        path.insert(0, node)
+
+
+
+
+visited = set() # or visited = [False] * len(nodes)
+
+pqueue = PQueue()
+pqueue.put((0, start))
+while not pqueue.empty():
+    _, node = pqueue.get()
+    if node == goal: return True
+    visited.add(node)
+    for child in graph[node]:
+        # if not visited[node]:
+
+        if node not in visited:
+            pqueue.put((f))
+
