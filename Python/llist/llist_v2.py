@@ -1,4 +1,7 @@
 class LList:
+    """
+    Single Linked List
+    """
     @staticmethod
     def init(lst):
         if len(lst) == 0:
@@ -14,7 +17,7 @@ class LList:
         return head
 
     @staticmethod
-    def print(head):
+    def display(head):
         node = head
         result = str(node.val)
         while node.next:
@@ -48,8 +51,12 @@ class LList:
             result = prev_node
             
         return result
+
         
 class DLList(LList):
+    """
+    Double Linked List
+    """
     @staticmethod
     def init(lst):
         if len(lst) == 0:
@@ -93,6 +100,81 @@ class DLList(LList):
             
         return head, tail
 
+
+
+class CLList(LList):
+    @staticmethod
+    def init(lst):
+        if len(lst) == 0:
+            return None
+            
+        head = LListNode(None)
+        node = head
+        for (i, x) in enumerate(lst):
+            node.val = x
+            if(i is not len(lst) - 1):
+                node.next = LListNode(None)
+                node = node.next
+            else:
+                node.next = head
+
+        return head
+
+    @staticmethod
+    def display(head):
+        if not head:
+            return None
+
+        node = head
+        result = str(node.val)
+
+        if not node.next: # case 1 node
+            print(result)
+            return None
+
+        slow = node.next
+        fast = node.next.next
+
+        while fast != slow:
+            result += ', {}'.format(slow.val)
+            slow = slow.next
+            fast = fast.next.next
+
+        print(result)
+
+        return None
+
+
+        
+    @staticmethod
+    def reverse(head):
+        #    [1] -> [2] -> [3] -> [4]
+        #(1) prev,  curt   
+        #(2)        prev,  curt
+        #(3)               prev,  curt
+        #(4) curt,                prev
+        if not head:
+            return None
+
+        if not head.next:
+            return head
+
+        prev_node = None
+        node = head
+        next_node = node.next
+
+        while True:
+            prev_node = node
+            node = next_node
+            next_node = next_node.next
+            node.next = prev_node
+
+            if node == head:
+                break
+
+        return head
+
+
 class LListNode:
     '''
     for node structure in linked list
@@ -105,7 +187,8 @@ class LListNode:
         if self.val:
             return self.val
         return ''
-        
+
+
 class DLListNode(LListNode):
     '''
     for node structure in double linked list
@@ -114,24 +197,34 @@ class DLListNode(LListNode):
         self.val = val
         self.next = None
         self.prev = None
-        
+
+
 if __name__ == '__main__':
     lst = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     
     """
-    For Linked List
+    For (Single) Linked List
     """
-    print("===== Linked List =====")
+    print("===== (Single) Linked List =====")
     head = LList.init(lst)
-    LList.print(head) # 1, 2, 3, 4, 5, 6, 7, 8, 9
+    LList.display(head) # 1, 2, 3, 4, 5, 6, 7, 8, 9
     new_head = LList.reverse(head)
-    LList.print(new_head) # 9, 8, 7, 6, 5, 4, 3, 2, 1
+    LList.display(new_head) # 9, 8, 7, 6, 5, 4, 3, 2, 1
     
     """
     For Double Linked List
     """
     print("===== Double Linked List =====")
     head, tail = DLList.init(lst)
-    DLList.print(head) # 1, 2, 3, 4, 5, 6, 7, 8, 9
+    DLList.display(head) # 1, 2, 3, 4, 5, 6, 7, 8, 9
     new_head, new_tail = DLList.reverse(head)
-    DLList.print(tail) # 9, 8, 7, 6, 5, 4, 3, 2, 1
+    DLList.display(tail) # 9, 8, 7, 6, 5, 4, 3, 2, 1
+
+    """
+    For Circle (Single) Linked List
+    """
+    print("===== Circle (Single) Linked List =====")
+    head = CLList.init(lst)
+    CLList.display(head) # 1, 2, 3, 4, 5, 6, 7, 8, 9
+    new_head = CLList.reverse(head)
+    CLList.display(new_head) # 1, 9, 8, 7, 6, 5, 4, 3, 2
